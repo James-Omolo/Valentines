@@ -41,12 +41,11 @@ body {
 }
 
 .letter-window {
-    height: 70vh;          /* scales based on screen height */
-    width: auto;           /* keeps aspect ratio correct */
-    aspect-ratio: 3 / 2;   /* maintains window shape */
+    height: min(70vh, 90vw);     /* scales proportionally */
+    aspect-ratio: 3 / 2;
 
-    padding: 3vh;          /* padding scales with screen */
-    padding-top: 18vh;     /* scales instead of fixed 180px */
+    padding: 3vh;
+    padding-top: 18vh;
 
     display: flex;
     flex-direction: column;
@@ -55,17 +54,20 @@ body {
     text-align: center;
 
     background-image: url("window.png");
-    background-size: contain;
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: center;
 
     border-radius: 12px;
     gap: 1vh;
 
-    transform: scale(1.2);
+    transform: scale(1);
     opacity: 0;
     transition: transform 0.6s ease, opacity 0.6s ease;
+
+    max-width: 95vw;
 }
+
 
 .letter-window.open {
     transform: scale(1);
@@ -146,4 +148,68 @@ display: inline-block;
     border-radius: 12px;
     max-width: 73%;                  /* prevents overflow */
     word-wrap: break-word;
+}
+
+/* ===== Mobile Styles ===== */
+@media (max-width: 600px) {
+
+    /* Envelope */
+    #envelope {
+        width: clamp(90px, 30vw, 120px);
+    }
+
+    /* Letter Window */
+    .letter-window {
+        aspect-ratio: auto;
+        width: 95vw;                 /* fill screen width */
+        max-width: 95vw;
+        height: auto;
+        min-height: 70vh;
+
+        padding: 5vw;
+        padding-top: 18vw;
+        gap: 4vw;
+
+        overflow-y: auto;
+        transform: scale(1);
+    }
+
+    /* Title */
+    h1 {
+        font-size: clamp(22px, 6vw, 32px);
+        margin-top: 6vw;
+    }
+
+    /* Body text */
+    p {
+        font-size: clamp(18px, 5vw, 26px);
+    }
+
+    /* Cat image */
+    .cat {
+        width: clamp(90px, 35%, 160px);
+        height: auto;
+        margin: 4vw 0;
+    }
+
+    .letter-window.final .cat {
+        width: clamp(80px, 30%, 140px);
+    }
+
+    /* Buttons */
+    .buttons {
+        gap: 5vw;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        width: clamp(80px, 28vw, 120px);
+    }
+
+    /* Final text */
+    .final-text {
+        font-size: clamp(16px, 4.5vw, 22px);
+        padding: 4vw 5vw;
+        max-width: 95%;
+    }
 }
